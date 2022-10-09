@@ -1,0 +1,13 @@
+{
+    
+    "bedroomsTotal": 3,
+    "minbuildingAreaTotal":1506,
+    "maxbuildingAreaTotal":1700,
+    "minPrice":12000,
+    "maxPrice":45000,
+  "minyearBuilt":1900,
+  "maxyearBuilt":2000,
+"propertySubType": "Single Family Residence",
+ "valuewaterstore" :"Public"
+    
+}
