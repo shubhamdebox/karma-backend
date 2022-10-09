@@ -187,9 +187,7 @@ export const loadProperties = async (req: Request, res: Response) => {
 //route 2 :-  getting data from mongo database using pagination
 export const fetchProperties = async (req: Request, res: Response) => {
   const { page } = req.body;
-  // const response = await HouseModel.find();
-  // res.json(response);
-
+ 
   //variable per page
   var perPage = 500;
 
@@ -214,12 +212,20 @@ export const fetchProperties = async (req: Request, res: Response) => {
   res.json(response);
 };
 
+
+
+
+
 //route 3 :-  getting single data mongo database using id ;
 export const fetchById = async (req: Request, res: Response) => {
   const { id } = req.body;
   var response = await HouseModel.findById(id);
   res.json(response);
 };
+
+
+
+
 
 //route 4 :- get data using properties;
 export const fetchByProperties = async (req: Request, res: Response) => {
@@ -232,7 +238,7 @@ export const fetchByProperties = async (req: Request, res: Response) => {
     minyearBuilt,
     maxyearBuilt,
     propertySubType,
-    communityFeatures,
+    valuewaterstore
   } = req.body;
   let match: any = {};
 
@@ -254,9 +260,14 @@ export const fetchByProperties = async (req: Request, res: Response) => {
   if (propertySubType) {
     match.propertySubType = propertySubType;
   }
- 
-  
+  if (valuewaterstore) {
+    match.waterSource = { $all: [valuewaterstore ]}    
+  }
+
 
   const response = await HouseModel.aggregate([{ $match: match }]);
+  // const response = await HouseModel.find({ waterSource: ["Public"] })
   res.json(response);
+ 
+  console.log(match);
 };
