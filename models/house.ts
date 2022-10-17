@@ -1,6 +1,8 @@
+
 import mongoose from "mongoose";
 import { MediaSchema } from "./media";
 import { RoomSchema } from "./room";
+
 const { Schema } = mongoose;
 
 //House schema declaration
@@ -262,74 +264,92 @@ const HouseSchema = new Schema({
     type: String,
   },
   accessibilityFeatures: {
-    type: String,
-  },
-  builderName:{
-    type: String,
-  },
-  numberOfCompletedUnitsTotal:{
-    type: String,
-  },
-  numberOfDocksTotal:{
-    type: String,
-  },
-  numberOfDriveInDoorsTotal:{
-    type: String,
-  },
-  numberOfProjectedUnitsTotal:{
-    type: String,
-  },
-  sqFtMain:{
-    type: String,
-  },
-  sqFtMaximumLease:{
-    type: String,
-  },
-  sqFtMinimumLease:{
-    type: String,
-  },
-  sqFtThird:{
-    type: String,
-  },
-  sqFtUpper:{
-    type: String,
-  },
-  streetViewParam:{
-    type: String,
-  },
-  city:{
-    type: String,
-  },
-  directions:{
-    type: String,
-  },
-  fireplaceYN:{
-    type: String,
-  },
-  furnished:{
-    type: String,
-  },
-  laundryFeatures:{
     type: [String],
     default: [],
   },
-  livingArea:{
+  builderName: {
     type: String,
   },
-  originalListPrice:{
+  numberOfCompletedUnitsTotal: {
     type: String,
   },
-  postalCode:{
+  numberOfDocksTotal: {
     type: String,
   },
-  taxAssessedValue:{
+  numberOfDriveInDoorsTotal: {
     type: String,
   },
-  virtualTourURLUnbranded:{
+  numberOfProjectedUnitsTotal: {
+    type: String,
+  },
+  sqFtMain: {
+    type: String,
+  },
+  sqFtMaximumLease: {
+    type: String,
+  },
+  sqFtMinimumLease: {
+    type: String,
+  },
+  sqFtThird: {
+    type: String,
+  },
+  sqFtUpper: {
+    type: String,
+  },
+  streetViewParam: {
+    type: String,
+  },
+  city: {
+    type: String,
+  },
+  directions: {
+    type: String,
+  },
+  fireplaceYN: {
+    type: String,
+  },
+  furnished: {
+    type: String,
+  },
+  laundryFeatures: {
+    type: [String],
+    default: [],
+  },
+  livingArea: {
+    type: String,
+  },
+  originalListPrice: {
+    type: String,
+  },
+  postalCode: {
+    type: String,
+  },
+  taxAssessedValue: {
+    type: String,
+  },
+  virtualTourURLUnbranded: {
+    type: String,
+  },
+  exteriorFeatures: {
+    type: [String],
+    default: [],
+  },
+  lotSizeArea: {
+    type: Number,
+  },
+  lotSizeUnits: {
+    type: String,
+  },
+  standardStatus: {
+    type: String,
+  },
+  masterBedroomLevel  : {
     type: String,
   },
   media: [MediaSchema],
   rooms: [RoomSchema],
+ 
 });
 
 const HouseModel = mongoose.model("House", HouseSchema);
