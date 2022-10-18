@@ -610,6 +610,7 @@ export const fetchProperties = async (req: Request, res: Response) => {
   res.json(response);
 };
 
+
 //route 3 :-  getting single data mongo database using id ;
 export const fetchById = async (req: Request, res: Response) => {
   let id = req.params["id"];
@@ -618,6 +619,7 @@ export const fetchById = async (req: Request, res: Response) => {
 
   res.json(response);
 };
+
 
 //route 4 :- get data using properties;
 export const fetchByProperties = async (req: Request, res: Response) => {

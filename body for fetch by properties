@@ -1,0 +1,16 @@
+{
+    "bedroomsTotal": 0,
+    "bathroomsTotalInteger":0,
+    "minbuildingAreaTotal":0,
+    "maxbuildingAreaTotal":20000,
+    "minPrice":0,
+    "maxPrice":50000000,
+    "minyearBuilt":1800,
+    "maxyearBuilt":2022,
+    "propertySubType": "Single Family Residence",
+    "lotSizeArea": 0,
+    "masterBedroomLevel" : "Main",
+    "standardStatus": "",
+    "communityFeatures":"",
+    "exteriorFeatures": ""
+}
