@@ -169,24 +169,25 @@ export const loadPropertiesActiveUnderContract = async (
       HouseModel.create(karmaData);
       // console.log(karmaData.garageBays)
       let nextData = commonData["@odata.nextLink"];
+      
       if (typeof nextData === "undefined") {
         console.log("done");
+        res.status(200).json({ success: true });
         return;
       }
-
+  
       let value = nextData.substring(nextData.lastIndexOf("=") + 1);
-
+  
       console.log(value);
-
+  
       if (nextData) {
         reload(value);
       } else {
-        res.sendStatus(200).json({ success: true });
+        res.status(200).json({ success: false });
       }
     }
-
+  
     await reload("0");
-
     // console.log("here we get the value",value)
   } catch (error: any) {
     console.log("Error in loadProperties : ", error.toString());
@@ -363,20 +364,21 @@ export const loadPropertiesActive = async (req: Request, res: Response) => {
 
       if (typeof nextData === "undefined") {
         console.log("done");
+        res.status(200).json({ success: true });
         return;
       }
-
+  
       let value = nextData.substring(nextData.lastIndexOf("=") + 1);
-
+  
       console.log(value);
-
+  
       if (nextData) {
         reload(value);
       } else {
-        res.sendStatus(200).json({ success: true });
+        res.status(200).json({ success: false });
       }
     }
-
+  
     await reload("0");
 
     // console.log("here we get the value",value)
@@ -554,7 +556,7 @@ export const loadPropertiesComingSoon = async (req: Request, res: Response) => {
 
     if (typeof nextData === "undefined") {
       console.log("done");
-      res.sendStatus(404).json({success:false});
+      res.status(200).json({ success: true });
       return;
     }
 
@@ -565,7 +567,7 @@ export const loadPropertiesComingSoon = async (req: Request, res: Response) => {
     if (nextData) {
       reload(value);
     } else {
-      res.sendStatus(200).json({ success: true });
+      res.status(200).json({ success: false });
     }
   }
 
@@ -719,5 +721,5 @@ export const fetchByProperties = async (req: Request, res: Response) => {
   ]);
 
   res.json({ data: response, pages: totalpage });
-  // res.json(response);
+
 };

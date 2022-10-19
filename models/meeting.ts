@@ -12,7 +12,7 @@ const MeetingSchema = new Schema({
     require: true,
   },
   Date:{
-    type:Date
+    type:String
   }
   
 });
