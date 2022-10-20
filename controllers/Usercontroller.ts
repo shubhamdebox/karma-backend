@@ -1,11 +1,8 @@
 import bcrypt from "bcryptjs";
-import likehouseModel from "../models/likehouse";
 import UserModel from "../models/User";
 var jwt = require("jsonwebtoken");
 
 const JWT_SECRET = "newstringishere";
-
-
 
 //create auser
 export const UserSignup = async (req: Request, res: Response) => {
@@ -46,8 +43,6 @@ export const UserSignup = async (req: Request, res: Response) => {
   }
 };
 
-
-
 // authencticate using authtoken / login
 export const UserLogin = async (req: Request, res: Response) => {
   try {
@@ -78,7 +73,6 @@ export const UserLogin = async (req: Request, res: Response) => {
     const authtoken = jwt.sign(data, JWT_SECRET);
     let success = true;
     res.json({ success, authtoken });
-
   } catch (error: any) {
     console.log("Error in meeting : ", error.toString());
     res
@@ -88,13 +82,10 @@ export const UserLogin = async (req: Request, res: Response) => {
   }
 };
 
-
-
 // to loggin using auth token
 export const GetUser = async (req: Request, res: Response) => {
   try {
     let userId = req.user.id;
-
     const user = await UserModel.findById(userId).select("-password");
     res.send(user);
   } catch (error: any) {
@@ -103,20 +94,26 @@ export const GetUser = async (req: Request, res: Response) => {
   }
 };
 
-
-// to add house in database
-export const likehouse = async (req: Request, res: Response) => {
+//adding house inside user
+export const addHouse = async (req: Request, res: Response) => {
   try {
     const { houseid } = req.body;
 
     let userId = req.user.id;
 
-    let data = await likehouseModel.create({
-      userId: userId,
-      roomid: houseid,
-    });
+    let isUser = await UserModel.findById(userId);
 
-    res.json({ data });
+    if (!isUser) {
+      return res.status(404).send(" user Not Found");
+    }
+
+    let updated = await UserModel.updateOne(
+      { _id: userId },
+      { $push: { rooms: houseid } }
+    );
+
+    res.json({ houseid });
+
   } catch (error: any) {
     console.error(error.message);
     res.status(500).send("Internal Server Error");
@@ -124,14 +121,27 @@ export const likehouse = async (req: Request, res: Response) => {
 };
 
 
-
-//to get houses from the database
-export const gethouses = async (req: Request, res: Response) => {
+//removing house from the user database....
+export const removeHouse = async (req: Request, res: Response) => {
   try {
-    const data = await likehouseModel.find({ user: req.user.id });
-    res.json(data);
-  } 
-  catch (error) {
+    const { houseid } = req.body;
+
+    let userId = req.user.id;
+
+    let isUser = await UserModel.findById(userId);
+
+    if (!isUser) {
+      return res.status(404).send(" user Not Found");
+    }
+
+    let removed = await UserModel.updateOne(
+      { _id: userId },
+      { $pull: { rooms: houseid } }
+    );
+
+    res.json({ removed });
+
+  } catch (error: any) {
     console.error(error.message);
     res.status(500).send("Internal Server Error");
   }

@@ -11,6 +11,10 @@ const UserSchema = new Schema({
     type: String,
     require: true,
   },
+  rooms : {
+    type: [String],
+    default: [],
+  }
 });
 
 const UserModel = mongoose.model("User", UserSchema);
