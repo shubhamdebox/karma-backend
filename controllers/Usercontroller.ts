@@ -43,6 +43,7 @@ export const UserSignup = async (req: Request, res: Response) => {
   }
 };
 
+
 // authencticate using authtoken / login
 export const UserLogin = async (req: Request, res: Response) => {
   try {
@@ -82,6 +83,7 @@ export const UserLogin = async (req: Request, res: Response) => {
   }
 };
 
+
 // to loggin using auth token
 export const GetUser = async (req: Request, res: Response) => {
   try {
@@ -94,13 +96,13 @@ export const GetUser = async (req: Request, res: Response) => {
   }
 };
 
-//adding house inside user
+
+
+//adding house inside userdatabase
 export const addHouse = async (req: Request, res: Response) => {
   try {
     const { houseid } = req.body;
-
     let userId = req.user.id;
-
     let isUser = await UserModel.findById(userId);
 
     if (!isUser) {
@@ -109,11 +111,12 @@ export const addHouse = async (req: Request, res: Response) => {
 
     let updated = await UserModel.updateOne(
       { _id: userId },
-      { $push: { rooms: houseid } }
+      { $addToSet: { rooms: houseid } }
     );
 
-    res.json({ houseid });
+    let data = await UserModel.find({ _id: userId });
 
+    res.json(data[0].rooms);
   } catch (error: any) {
     console.error(error.message);
     res.status(500).send("Internal Server Error");
@@ -139,9 +142,32 @@ export const removeHouse = async (req: Request, res: Response) => {
       { $pull: { rooms: houseid } }
     );
 
-    res.json({ removed });
+    let data = await UserModel.find({ _id: userId });
 
+    res.json(data[0].rooms);
   } catch (error: any) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+};
+
+
+//getting like-house from the database......
+export const getlikedhouses = async (req: Request, res: Response) => {
+  try {
+    let userId = req.user.id;
+
+    let isUser = await UserModel.findById(userId);
+
+    if (!isUser) {
+      return res.status(404).send(" user Not Found");
+    }
+
+    let data = await UserModel.find({ _id: userId });
+
+    res.json(data[0].rooms);
+
+  } catch (error) {
     console.error(error.message);
     res.status(500).send("Internal Server Error");
   }

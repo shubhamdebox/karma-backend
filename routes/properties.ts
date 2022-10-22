@@ -2,7 +2,7 @@ import express, { Router } from "express"
 import { loadPropertiesActiveUnderContract,loadPropertiesActive,loadPropertiesComingSoon,fetchProperties, fetchById, fetchByProperties} from "../controllers/properties"
 import { contactDetails } from "../controllers/contact";
 import { meetingDetails } from "../controllers/meeting";
-import { UserLogin, UserSignup ,GetUser,addHouse ,removeHouse} from "../controllers/Usercontroller";
+import { UserLogin, UserSignup ,GetUser,addHouse ,removeHouse , getlikedhouses } from "../controllers/Usercontroller";
 import { fetchuser } from "../middleware/fetchuser";
 const router = express.Router()
 
@@ -19,7 +19,7 @@ router.post('/Login',UserLogin);
 router.post('/getuser',fetchuser,GetUser);
 router.post('/addHouse',fetchuser,addHouse);
 router.post('/removeHouse',fetchuser,removeHouse);
-
+router.post('/getlikedhouses',fetchuser,getlikedhouses);
 
 
 export = router;
