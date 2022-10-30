@@ -5,11 +5,11 @@ var jwt = require("jsonwebtoken");
 const JWT_SECRET = "newstringishere";
 
 //create auser
-export const UserSignup = async (req: Request, res: Response) => {
+export const userSignup = async (req: Request, res: Response) => {
   try {
-    const { email, password } = req.body;
+    const { email , password } : any = req.body;
 
-    let user = await UserModel.findOne({ email: email });
+    let user = await UserModel.findOne({ email: email }) ;
 
     if (user) {
       return res
@@ -45,9 +45,9 @@ export const UserSignup = async (req: Request, res: Response) => {
 
 
 // authencticate using authtoken / login
-export const UserLogin = async (req: Request, res: Response) => {
+export const userLogin = async (req: Request, res: Response) => {
   try {
-    const { email, password } = req.body;
+    const { email, password } : any = req.body;
 
     let user = await UserModel.findOne({ email });
 
@@ -85,7 +85,7 @@ export const UserLogin = async (req: Request, res: Response) => {
 
 
 // to loggin using auth token
-export const GetUser = async (req: Request, res: Response) => {
+export const getUser = async (req: Request, res: Response) => {
   try {
     let userId = req.user.id;
     const user = await UserModel.findById(userId).select("-password");
@@ -127,7 +127,7 @@ export const addHouse = async (req: Request, res: Response) => {
 //removing house from the user database....
 export const removeHouse = async (req: Request, res: Response) => {
   try {
-    const { houseid } = req.body;
+    const { houseid } : any = req.body;
 
     let userId = req.user.id;
 
@@ -150,6 +150,8 @@ export const removeHouse = async (req: Request, res: Response) => {
     res.status(500).send("Internal Server Error");
   }
 };
+
+
 
 
 //getting like-house from the database......
