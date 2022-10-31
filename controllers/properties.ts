@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import axios from "axios";
 import HouseModel from "../models/house";
 
-//route 1:- getting the api from client....
+//route 1:- active under controll
 export const loadPropertiesActiveUnderContract = async (
   req: Request,
   res: Response
@@ -198,6 +198,7 @@ export const loadPropertiesActiveUnderContract = async (
   }
 };
 
+//route 2:- is active
 export const loadPropertiesActive = async (req: Request, res: Response) => {
   try {
     async function reload(skip: string) {
@@ -391,6 +392,7 @@ export const loadPropertiesActive = async (req: Request, res: Response) => {
   }
 };
 
+// route 3 :- comingsoon
 export const loadPropertiesComingSoon = async (req: Request, res: Response) => {
   try {
     async function reload(skip: string) {
@@ -583,8 +585,7 @@ export const loadPropertiesComingSoon = async (req: Request, res: Response) => {
   }
 };
 
-
-//route 2 :- getting data from mongo database using pagination ////// now its an expectional route delete later
+//route 4:- getting data from mongo database using pagination ////// now its an expectional route delete later
 export const fetchProperties = async (req: Request, res: Response) => {
   const { page } = req.body;
 
@@ -612,18 +613,19 @@ export const fetchProperties = async (req: Request, res: Response) => {
   res.json(response);
 };
 
-
-//route 3 :-  getting single data mongo database using id ;
+//route 5 :-  getting single data mongo database using id ;
 export const fetchById = async (req: Request, res: Response) => {
+  //getting id from user
   let id = req.params["id"];
 
+
+  //getting data from particular house
   var response = await HouseModel.findById(id);
 
   res.json(response);
 };
 
-
-//route 4 :- get data using properties;
+//route 6 :- get data using properties;
 export const fetchByProperties = async (req: Request, res: Response) => {
   // using params to change page
   let param = req.params["page"];

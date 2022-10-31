@@ -4,7 +4,7 @@ import ContactModel from "../models/contact";
 export const contactDetails = async (
   req: Request,
   res: Response
-) => {
+ ) => {
   try {
 
     const {

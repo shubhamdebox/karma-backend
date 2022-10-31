@@ -1,15 +1,16 @@
 import bcrypt from "bcryptjs";
 import UserModel from "../models/User";
-var jwt = require("jsonwebtoken");
+let jwt = require("jsonwebtoken");
+import { Request, Response } from "express";
 
 const JWT_SECRET = "newstringishere";
 
-//create auser
+//create a new user
 export const userSignup = async (req: Request, res: Response) => {
   try {
-    const { email , password } : any = req.body;
+    const { email, password }: any = req.body;
 
-    let user = await UserModel.findOne({ email: email }) ;
+    let user = await UserModel.findOne({ email: email });
 
     if (user) {
       return res
@@ -43,11 +44,10 @@ export const userSignup = async (req: Request, res: Response) => {
   }
 };
 
-
-// authencticate using authtoken / login
+// Authencticate using authtoken / login
 export const userLogin = async (req: Request, res: Response) => {
   try {
-    const { email, password } : any = req.body;
+    const { email, password }: any = req.body;
 
     let user = await UserModel.findOne({ email });
 
@@ -57,34 +57,37 @@ export const userLogin = async (req: Request, res: Response) => {
         .json({ error: "Please try to login with correct credentials" });
     }
 
+    //creating password using bcryptjs
     const passwordCompare = await bcrypt.compare(password, user.password);
 
+    //if not password then throw error
     if (!passwordCompare) {
       return res
         .status(400)
         .json({ error: "Please try to login with correct credentials" });
     }
 
+    //creating a data to convert it in auth token
     const data = {
       user: {
         id: user.id,
       },
     };
 
+    //create a new auth token
     const authtoken = jwt.sign(data, JWT_SECRET);
     let success = true;
     res.json({ success, authtoken });
   } catch (error: any) {
     console.log("Error in meeting : ", error.toString());
     res
-      .Status(500)
+      .status(500)
       .json({ error: "Something went wrong, please try again later" });
     return;
   }
 };
 
-
-// to loggin using auth token
+// To loggin using auth token
 export const getUser = async (req: Request, res: Response) => {
   try {
     let userId = req.user.id;
@@ -96,9 +99,7 @@ export const getUser = async (req: Request, res: Response) => {
   }
 };
 
-
-
-//adding house inside userdatabase
+//Adding house inside userdatabase
 export const addHouse = async (req: Request, res: Response) => {
   try {
     const { houseid } = req.body;
@@ -123,11 +124,10 @@ export const addHouse = async (req: Request, res: Response) => {
   }
 };
 
-
-//removing house from the user database....
+//Removing house from the user database....
 export const removeHouse = async (req: Request, res: Response) => {
   try {
-    const { houseid } : any = req.body;
+    const { houseid }: any = req.body;
 
     let userId = req.user.id;
 
@@ -151,10 +151,7 @@ export const removeHouse = async (req: Request, res: Response) => {
   }
 };
 
-
-
-
-//getting like-house from the database......
+//Getting like-house from the database......
 export const getlikedhouses = async (req: Request, res: Response) => {
   try {
     let userId = req.user.id;
@@ -168,8 +165,7 @@ export const getlikedhouses = async (req: Request, res: Response) => {
     let data = await UserModel.find({ _id: userId });
 
     res.json(data[0].rooms);
-
-  } catch (error) {
+  } catch (error: any) {
     console.error(error.message);
     res.status(500).send("Internal Server Error");
   }

@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import MeetingModel from "../models/meeting";
 
+
+//api for meeting details
 export const meetingDetails = async (req: Request, res: Response) => {
   try {
     const { name, phoneNo, Date } = req.body;
