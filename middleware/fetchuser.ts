@@ -4,7 +4,7 @@ let jwt = require("jsonwebtoken");
 const JWT_SECRET = "newstringishere";
 
 
-export const fetchuser = async (req: Request, res: Response, next: NextFunction )  => {
+export const fetchuser = async (req: any, res: Response, next: NextFunction )  => {
 
   // Get the user from the jwt token and add id to req object
   const token = req.header("auth-token");

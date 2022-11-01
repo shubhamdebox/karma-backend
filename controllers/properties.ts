@@ -620,13 +620,14 @@ export const fetchById = async (req: Request, res: Response) => {
 
 
   //getting data from particular house
-  var response = await HouseModel.findById(id);
+  let response = await HouseModel.findById(id);
 
   res.json(response);
 };
 
 //route 6 :- get data using properties;
 export const fetchByProperties = async (req: Request, res: Response) => {
+
   // using params to change page
   let param = req.params["page"];
   let page = parseInt(param);
@@ -648,6 +649,7 @@ export const fetchByProperties = async (req: Request, res: Response) => {
     lotSizeUnits,
     masterBedroomLevel,
     standardStatus,
+    searchtext,
   } = req.body;
 
   //created match to store the object
@@ -683,21 +685,29 @@ export const fetchByProperties = async (req: Request, res: Response) => {
   }
 
   //changes has to be done here
-
   if (communityFeatures != "") {
     match.communityFeatures = { $all: [...communityFeatures] };
   }
   if (exteriorFeatures != "") {
     match.exteriorFeatures = { $all: [...exteriorFeatures] };
   }
-
   if (lotSizeArea) {
     match.lotSizeArea = { $gte: lotSizeArea };
   }
   if (lotSizeUnits) {
     match.lotSizeUnits = { $gte: lotSizeUnits };
   }
-  
+  if(searchtext){
+    // match.city = { $regex: searchtext}
+    match = {
+     ...match,
+     $or: [
+        { city: { $regex: searchtext, $options: 'i' } },
+        { postalCode : { $eq: searchtext} },
+        { subdivisionName : {$regex : searchtext , $options: 'i'}}
+     ]
+  } 
+ }
 
   console.log(match);
   
@@ -720,6 +730,7 @@ export const fetchByProperties = async (req: Request, res: Response) => {
     { $match: match },
     { $skip: 8 * page },
     { $limit: 8 },
+    { $sort: {  price : 1  , sqFtTotal : 1 , bedroomsTotal : 1 , bathroomsTotalInteger : 1 } },
   ]);
 
   res.json({ data: response, pages: totalpage });

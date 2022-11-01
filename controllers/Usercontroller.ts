@@ -45,7 +45,7 @@ export const userSignup = async (req: Request, res: Response) => {
 };
 
 // Authencticate using authtoken / login
-export const userLogin = async (req: Request, res: Response) => {
+export const userLogin = async (req: any, res: Response) => {
   try {
     const { email, password }: any = req.body;
 
@@ -58,7 +58,7 @@ export const userLogin = async (req: Request, res: Response) => {
     }
 
     //creating password using bcryptjs
-    const passwordCompare = await bcrypt.compare(password, user.password);
+    const passwordCompare  = await bcrypt.compare(password, user.password);
 
     //if not password then throw error
     if (!passwordCompare) {
@@ -88,7 +88,7 @@ export const userLogin = async (req: Request, res: Response) => {
 };
 
 // To loggin using auth token
-export const getUser = async (req: Request, res: Response) => {
+export const getUser = async (req: any, res: Response) => {
   try {
     let userId = req.user.id;
     const user = await UserModel.findById(userId).select("-password");
@@ -100,7 +100,7 @@ export const getUser = async (req: Request, res: Response) => {
 };
 
 //Adding house inside userdatabase
-export const addHouse = async (req: Request, res: Response) => {
+export const addHouse = async (req: any, res: Response) => {
   try {
     const { houseid } = req.body;
     let userId = req.user.id;
@@ -125,7 +125,7 @@ export const addHouse = async (req: Request, res: Response) => {
 };
 
 //Removing house from the user database....
-export const removeHouse = async (req: Request, res: Response) => {
+export const removeHouse = async (req: any, res: Response) => {
   try {
     const { houseid }: any = req.body;
 
@@ -152,7 +152,7 @@ export const removeHouse = async (req: Request, res: Response) => {
 };
 
 //Getting like-house from the database......
-export const getlikedhouses = async (req: Request, res: Response) => {
+export const getlikedhouses = async (req: any, res: Response) => {
   try {
     let userId = req.user.id;
 
