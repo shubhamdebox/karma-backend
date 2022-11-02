@@ -49,7 +49,7 @@ export const userLogin = async (req: any, res: Response) => {
   try {
     const { email, password }: any = req.body;
 
-    let user = await UserModel.findOne({ email });
+    let user : any = await UserModel.findOne({ email });
 
     if (!user) {
       return res

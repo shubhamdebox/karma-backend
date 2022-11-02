@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
 import ContactModel from "../models/contact";
+import UserModel from "../models/User";
 
 export const contactDetails = async (
-  req: Request,
+  req: any,
   res: Response
  ) => {
   try {
@@ -11,11 +12,12 @@ export const contactDetails = async (
       name,
       inquiryType,
       phoneNo,
-      email,
       inquiryDetails,
       value,
+      email,
     } = req.body;
 
+   
 
     ContactModel.create({
         name : name,
@@ -28,7 +30,8 @@ export const contactDetails = async (
      
     res.status(200).send({success: true});
    
-  } catch (error: any) {
+  } 
+  catch (error: any) {
     console.log("Error in contact : ", error.toString());
     res
       .sendStatus(500)
