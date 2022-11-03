@@ -3,6 +3,10 @@ const { Schema } = mongoose;
 
 //House schema declaration
 const UserSchema = new Schema({
+  name: {
+    type: String,
+    required: true,
+  },
   email: {
     type: String,
     require: true,

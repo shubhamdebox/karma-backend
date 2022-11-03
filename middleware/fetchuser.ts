@@ -16,7 +16,6 @@ export const fetchuser = async (req: any, res: Response, next: NextFunction )  =
     return;
   }
 
-
   try {
     const data = jwt.verify(token, JWT_SECRET);
     req.user = data.user;
@@ -26,4 +25,5 @@ export const fetchuser = async (req: any, res: Response, next: NextFunction )  =
   } catch (error) {
     res.sendStatus(401).send({ error: "Please authenticate using a valid token" });
   }
+  
 };

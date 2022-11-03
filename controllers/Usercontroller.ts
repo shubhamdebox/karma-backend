@@ -8,10 +8,12 @@ const JWT_SECRET = "newstringishere";
 //create a new user
 export const userSignup = async (req: Request, res: Response) => {
   try {
-    const { email, password }: any = req.body;
+    const { name , email , password }: any = req.body;
 
+
+     console.log(name)
     let user = await UserModel.findOne({ email: email });
-
+    
     if (user) {
       return res
         .status(400)
@@ -22,6 +24,7 @@ export const userSignup = async (req: Request, res: Response) => {
     const secPass = await bcrypt.hash(password, salt);
 
     user = await UserModel.create({
+      name : name,
       email: email,
       password: secPass,
     });
@@ -89,11 +92,20 @@ export const userLogin = async (req: any, res: Response) => {
 
 // To loggin using auth token
 export const getUser = async (req: any, res: Response) => {
-  try {
+  try 
+  {
     let userId = req.user.id;
+  
     const user = await UserModel.findById(userId).select("-password");
-    res.send(user);
-  } catch (error: any) {
+
+    let name = user?.name
+    
+    let email = user?.email
+    
+    res.send({ name : name , email : email } );
+
+  } 
+  catch (error: any) {
     console.error(error.message);
     res.status(500).send("Internal Server Error");
   }
@@ -103,6 +115,7 @@ export const getUser = async (req: any, res: Response) => {
 export const addHouse = async (req: any, res: Response) => {
   try {
     const { houseid } = req.body;
+
     let userId = req.user.id;
     let isUser = await UserModel.findById(userId);
 

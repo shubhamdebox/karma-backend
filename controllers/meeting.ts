@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import MeetingModel from "../models/meeting";
-import UserModel from "../models/User";
 const nodemailer = require("nodemailer");
 
 
@@ -8,25 +7,22 @@ const nodemailer = require("nodemailer");
 export const meetingDetails = async (req: any, res: Response) => {
   try {
 
-    const { name, phoneNo, Date } = req.body;
-
-    let userId = req.user.id;
- 
-    let isUser = await UserModel.findById(userId);
-
-    let email = isUser?.email
-
+    const { name, phoneNo , Email ,  Date , Description } = req.body;
 
     MeetingModel.create({
       name: name,
       phoneNo: phoneNo,
       Date: Date,
+      Email : Email,
+      Description : Description,
     });
 
 
     res.status(200).send({ success: true });
 
   
+
+    //mail part start here 
     let transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
       port: 587,
@@ -39,13 +35,10 @@ export const meetingDetails = async (req: any, res: Response) => {
 
     let message = await transporter.sendMail({
       from: '"Karma reality" <shubham@debox.co.in>', //sender address
-      to: email,  //receivers
+      to: Email,  //receivers
       subject: "Hello from karma", //Subject line
       text: `Hello ${name} this mail is from karma reality thanks for contacting us we will meet at ${Date}`, 
     });
-
-    console.log(message)
-
 
     transporter.sendMail(message,({error,info} : any) => {
        if (error){
@@ -55,7 +48,8 @@ export const meetingDetails = async (req: any, res: Response) => {
        console.log('Preview URL : %s', nodemailer.getTestMessageUrl(info));
     });
 
-  } catch (error: any) {
+  } 
+  catch (error: any) {
     console.log("Error in meeting : ", error.toString());
     res
       .sendStatus(500)

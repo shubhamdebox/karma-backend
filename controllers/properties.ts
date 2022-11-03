@@ -407,7 +407,7 @@ export const loadPropertiesActive = async (req: Request, res: Response) => {
   }
 };
 
-// route 3 :- comingsoon
+//route 3 :- comingsoon
 export const loadPropertiesComingSoon = async (req: Request, res: Response) => {
   try {
     async function reload(skip: string) {
@@ -934,16 +934,16 @@ export const upsertActiveunderContract = async () => {
           queryobject,
           newupdatedvalues,
           option,
-          function (error, result) {
-            console.log(error, result);
-          }
+          // function (error, result) {
+          //   console.log(error, result);
+          // }
         );
       });
 
       let nextData = commonData["@odata.nextLink"];
 
       if (typeof nextData === "undefined") {
-        console.log("done");
+        console.log("Done ActiveunderContract ");
         return;
       }
 
@@ -1141,9 +1141,9 @@ export const upsertActive = async () => {
           queryobject,
           newupdatedvalues,
           option,
-          function (error, result) {
-            console.log(error, result);
-          }
+          // function (error, result) {
+          //   console.log(error, result);
+          // }
         );
       });
 
@@ -1151,7 +1151,7 @@ export const upsertActive = async () => {
       let nextData = commonData["@odata.nextLink"];
 
       if (typeof nextData === "undefined") {
-        console.log("done");
+        console.log("Done Active");
         return;
       }
 
@@ -1348,9 +1348,9 @@ export const upsertComingSoon = async () => {
           queryobject,
           newupdatedvalues,
           option,
-          function (error, result) {
-            console.log(error, result);
-          }
+          // function (error, result) {
+          //   console.log(error, result);
+          // }
         );
       });
 
@@ -1358,7 +1358,7 @@ export const upsertComingSoon = async () => {
       let nextData = commonData["@odata.nextLink"];
 
       if (typeof nextData === "undefined") {
-        console.log("done");
+        console.log("Done ComingSoon");
         return;
       }
 
@@ -1375,7 +1375,6 @@ export const upsertComingSoon = async () => {
 
     await reload("0");
 
-
   } catch (error: any) {
     console.log("Error in upsertcommingsoon : ", error.toString());
     return;
@@ -1383,7 +1382,7 @@ export const upsertComingSoon = async () => {
 };
 
 //cron functionality to run after 15 minutes
-cron.schedule("*/30 * * * *", () => {
+cron.schedule("*/15 * * * *", () => {
   upsertComingSoon();
   upsertActive();
   upsertActiveunderContract();

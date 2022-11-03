@@ -3,15 +3,23 @@ const { Schema } = mongoose;
 
 //House schema declaration
 const MeetingSchema = new Schema({
+
   name: {
     type: String,
-    require: true,
+    require: true,  
   },
   phoneNo:{
     type: Number,
-    require: true,
+    require: true, 
+  },
+  Email:{
+    type: String,
+    require:true
   },
   Date:{
+    type:String
+  },
+  Description:{
     type:String
   }
   
