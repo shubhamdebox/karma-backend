@@ -3,17 +3,17 @@ import UserModel from "../models/User";
 let jwt = require("jsonwebtoken");
 import { Request, Response } from "express";
 
-const JWT_SECRET = "newstringishere";
+const JWT_SECRET = process.env;
 
 //create a new user
 export const userSignup = async (req: Request, res: Response) => {
   try {
-    const { name , email , password }: any = req.body;
+    const { name, email, password }: any = req.body;
 
 
-     console.log(name)
+    console.log(name)
     let user = await UserModel.findOne({ email: email });
-    
+
     if (user) {
       return res
         .status(400)
@@ -24,7 +24,7 @@ export const userSignup = async (req: Request, res: Response) => {
     const secPass = await bcrypt.hash(password, salt);
 
     user = await UserModel.create({
-      name : name,
+      name: name,
       email: email,
       password: secPass,
     });
@@ -52,7 +52,7 @@ export const userLogin = async (req: any, res: Response) => {
   try {
     const { email, password }: any = req.body;
 
-    let user : any = await UserModel.findOne({ email });
+    let user: any = await UserModel.findOne({ email });
 
     if (!user) {
       return res
@@ -61,7 +61,7 @@ export const userLogin = async (req: any, res: Response) => {
     }
 
     //creating password using bcryptjs
-    const passwordCompare  = await bcrypt.compare(password, user.password);
+    const passwordCompare = await bcrypt.compare(password, user.password);
 
     //if not password then throw error
     if (!passwordCompare) {
@@ -92,19 +92,18 @@ export const userLogin = async (req: any, res: Response) => {
 
 // To loggin using auth token
 export const getUser = async (req: any, res: Response) => {
-  try 
-  {
+  try {
     let userId = req.user.id;
-  
+
     const user = await UserModel.findById(userId).select("-password");
 
     let name = user?.name
-    
-    let email = user?.email
-    
-    res.send({ name : name , email : email } );
 
-  } 
+    let email = user?.email
+
+    res.send({ name: name, email: email });
+
+  }
   catch (error: any) {
     console.error(error.message);
     res.status(500).send("Internal Server Error");

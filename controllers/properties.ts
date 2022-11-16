@@ -3,6 +3,8 @@ import axios from "axios";
 import HouseModel from "../models/house";
 let cron = require("node-cron");
 
+
+
 //route 1:- active under controll
 export const loadPropertiesActiveUnderContract = async (
   req: Request,
@@ -20,7 +22,7 @@ export const loadPropertiesActiveUnderContract = async (
         },
         headers: {
           "Accept-Encoding": "gzip,deflate",
-          Authorization: `Bearer efc7dab99edd9fabaa4f5ace700c829c1efd479d`,
+          Authorization: process.env.MLS_Token,
         },
       });
 
@@ -148,24 +150,24 @@ export const loadPropertiesActiveUnderContract = async (
                 room.CAR_RoomTypes &&
                 room.CAR_RoomTypes.includes("Primary Bedroom")
             )?.
-          RoomLevel || "",
+              RoomLevel || "",
           media: house.Media
             ? house.Media.map((el: any) => ({
-                longDescription: el.LongDescription,
-                mediaKey: el.MediaKey,
-                order: el.Order,
-                mediaURL: el.MediaURL,
-              }))
+              longDescription: el.LongDescription,
+              mediaKey: el.MediaKey,
+              order: el.Order,
+              mediaURL: el.MediaURL,
+            }))
             : [],
           rooms: house.Rooms
             ? house.Rooms.map((el: any) => ({
-                bathsFull: el.CAR_BathsFull,
-                bathsHalf: el.CAR_BathsHalf,
-                bedsTotal: el.CAR_BedsTotal,
-                roomKey: el.RoomKey,
-                roomLevel: el.RoomLevel,
-                roomTypes: el.CAR_RoomTypes,
-              }))
+              bathsFull: el.CAR_BathsFull,
+              bathsHalf: el.CAR_BathsHalf,
+              bedsTotal: el.CAR_BedsTotal,
+              roomKey: el.RoomKey,
+              roomLevel: el.RoomLevel,
+              roomTypes: el.CAR_RoomTypes,
+            }))
             : [],
         };
       });
@@ -223,7 +225,7 @@ export const loadPropertiesActive = async (req: Request, res: Response) => {
         },
         headers: {
           "Accept-Encoding": "gzip,deflate",
-          Authorization: `Bearer efc7dab99edd9fabaa4f5ace700c829c1efd479d`,
+          Authorization: process.env.MLS_TOKEN,
         },
       });
 
@@ -353,21 +355,21 @@ export const loadPropertiesActive = async (req: Request, res: Response) => {
             )?.RoomLevel || "",
           media: house.Media
             ? house.Media.map((el: any) => ({
-                longDescription: el.LongDescription,
-                mediaKey: el.MediaKey,
-                order: el.Order,
-                mediaURL: el.MediaURL,
-              }))
+              longDescription: el.LongDescription,
+              mediaKey: el.MediaKey,
+              order: el.Order,
+              mediaURL: el.MediaURL,
+            }))
             : [],
           rooms: house.Rooms
             ? house.Rooms.map((el: any) => ({
-                bathsFull: el.CAR_BathsFull,
-                bathsHalf: el.CAR_BathsHalf,
-                bedsTotal: el.CAR_BedsTotal,
-                roomKey: el.RoomKey,
-                roomLevel: el.RoomLevel,
-                roomTypes: el.CAR_RoomTypes,
-              }))
+              bathsFull: el.CAR_BathsFull,
+              bathsHalf: el.CAR_BathsHalf,
+              bedsTotal: el.CAR_BedsTotal,
+              roomKey: el.RoomKey,
+              roomLevel: el.RoomLevel,
+              roomTypes: el.CAR_RoomTypes,
+            }))
             : [],
         };
       });
@@ -421,7 +423,7 @@ export const loadPropertiesComingSoon = async (req: Request, res: Response) => {
         },
         headers: {
           "Accept-Encoding": "gzip,deflate",
-          Authorization: `Bearer efc7dab99edd9fabaa4f5ace700c829c1efd479d`,
+          Authorization: process.env.MLS_TOKEN,
         },
       });
 
@@ -551,21 +553,21 @@ export const loadPropertiesComingSoon = async (req: Request, res: Response) => {
             )?.RoomLevel || "",
           media: house.Media
             ? house.Media.map((el: any) => ({
-                longDescription: el.LongDescription,
-                mediaKey: el.MediaKey,
-                order: el.Order,
-                mediaURL: el.MediaURL,
-              }))
+              longDescription: el.LongDescription,
+              mediaKey: el.MediaKey,
+              order: el.Order,
+              mediaURL: el.MediaURL,
+            }))
             : [],
           rooms: house.Rooms
             ? house.Rooms.map((el: any) => ({
-                bathsFull: el.CAR_BathsFull,
-                bathsHalf: el.CAR_BathsHalf,
-                bedsTotal: el.CAR_BedsTotal,
-                roomKey: el.RoomKey,
-                roomLevel: el.RoomLevel,
-                roomTypes: el.CAR_RoomTypes,
-              }))
+              bathsFull: el.CAR_BathsFull,
+              bathsHalf: el.CAR_BathsHalf,
+              bedsTotal: el.CAR_BedsTotal,
+              roomKey: el.RoomKey,
+              roomLevel: el.RoomLevel,
+              roomTypes: el.CAR_RoomTypes,
+            }))
             : [],
         };
       });
@@ -776,7 +778,7 @@ export const upsertActiveunderContract = async () => {
         },
         headers: {
           "Accept-Encoding": "gzip,deflate",
-          Authorization: `Bearer efc7dab99edd9fabaa4f5ace700c829c1efd479d`,
+          Authorization: process.env.MLS_TOKEN,
         },
       });
 
@@ -906,21 +908,21 @@ export const upsertActiveunderContract = async () => {
             )?.RoomLevel || "",
           media: house.Media
             ? house.Media.map((el: any) => ({
-                longDescription: el.LongDescription,
-                mediaKey: el.MediaKey,
-                order: el.Order,
-                mediaURL: el.MediaURL,
-              }))
+              longDescription: el.LongDescription,
+              mediaKey: el.MediaKey,
+              order: el.Order,
+              mediaURL: el.MediaURL,
+            }))
             : [],
           rooms: house.Rooms
             ? house.Rooms.map((el: any) => ({
-                bathsFull: el.CAR_BathsFull,
-                bathsHalf: el.CAR_BathsHalf,
-                bedsTotal: el.CAR_BedsTotal,
-                roomKey: el.RoomKey,
-                roomLevel: el.RoomLevel,
-                roomTypes: el.CAR_RoomTypes,
-              }))
+              bathsFull: el.CAR_BathsFull,
+              bathsHalf: el.CAR_BathsHalf,
+              bedsTotal: el.CAR_BedsTotal,
+              roomKey: el.RoomKey,
+              roomLevel: el.RoomLevel,
+              roomTypes: el.CAR_RoomTypes,
+            }))
             : [],
         };
       });
@@ -983,7 +985,7 @@ export const upsertActive = async () => {
         },
         headers: {
           "Accept-Encoding": "gzip,deflate",
-          Authorization: `Bearer efc7dab99edd9fabaa4f5ace700c829c1efd479d`,
+          Authorization: process.env.MLS_TOKEN,
         },
       });
 
@@ -1113,21 +1115,21 @@ export const upsertActive = async () => {
             )?.RoomLevel || "",
           media: house.Media
             ? house.Media.map((el: any) => ({
-                longDescription: el.LongDescription,
-                mediaKey: el.MediaKey,
-                order: el.Order,
-                mediaURL: el.MediaURL,
-              }))
+              longDescription: el.LongDescription,
+              mediaKey: el.MediaKey,
+              order: el.Order,
+              mediaURL: el.MediaURL,
+            }))
             : [],
           rooms: house.Rooms
             ? house.Rooms.map((el: any) => ({
-                bathsFull: el.CAR_BathsFull,
-                bathsHalf: el.CAR_BathsHalf,
-                bedsTotal: el.CAR_BedsTotal,
-                roomKey: el.RoomKey,
-                roomLevel: el.RoomLevel,
-                roomTypes: el.CAR_RoomTypes,
-              }))
+              bathsFull: el.CAR_BathsFull,
+              bathsHalf: el.CAR_BathsHalf,
+              bedsTotal: el.CAR_BedsTotal,
+              roomKey: el.RoomKey,
+              roomLevel: el.RoomLevel,
+              roomTypes: el.CAR_RoomTypes,
+            }))
             : [],
         };
       });
@@ -1190,7 +1192,7 @@ export const upsertComingSoon = async () => {
         },
         headers: {
           "Accept-Encoding": "gzip,deflate",
-          Authorization: `Bearer efc7dab99edd9fabaa4f5ace700c829c1efd479d`,
+          Authorization: process.env.MLS_TOKEN,
         },
       });
 
@@ -1320,21 +1322,21 @@ export const upsertComingSoon = async () => {
             )?.RoomLevel || "",
           media: house.Media
             ? house.Media.map((el: any) => ({
-                longDescription: el.LongDescription,
-                mediaKey: el.MediaKey,
-                order: el.Order,
-                mediaURL: el.MediaURL,
-              }))
+              longDescription: el.LongDescription,
+              mediaKey: el.MediaKey,
+              order: el.Order,
+              mediaURL: el.MediaURL,
+            }))
             : [],
           rooms: house.Rooms
             ? house.Rooms.map((el: any) => ({
-                bathsFull: el.CAR_BathsFull,
-                bathsHalf: el.CAR_BathsHalf,
-                bedsTotal: el.CAR_BedsTotal,
-                roomKey: el.RoomKey,
-                roomLevel: el.RoomLevel,
-                roomTypes: el.CAR_RoomTypes,
-              }))
+              bathsFull: el.CAR_BathsFull,
+              bathsHalf: el.CAR_BathsHalf,
+              bedsTotal: el.CAR_BedsTotal,
+              roomKey: el.RoomKey,
+              roomLevel: el.RoomLevel,
+              roomTypes: el.CAR_RoomTypes,
+            }))
             : [],
         };
       });
@@ -1356,7 +1358,7 @@ export const upsertComingSoon = async () => {
         );
       });
 
-      
+
       let nextData = commonData["@odata.nextLink"];
 
       if (typeof nextData === "undefined") {
