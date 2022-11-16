@@ -21,7 +21,11 @@ const MeetingSchema = new Schema({
   },
   Description:{
     type:String
+  },
+  Meetingtype:{
+    type:String
   }
+  
   
 });
 

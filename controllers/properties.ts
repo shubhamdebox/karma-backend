@@ -147,7 +147,8 @@ export const loadPropertiesActiveUnderContract = async (
               (room: any) =>
                 room.CAR_RoomTypes &&
                 room.CAR_RoomTypes.includes("Primary Bedroom")
-            )?.RoomLevel || "",
+            )?.
+          RoomLevel || "",
           media: house.Media
             ? house.Media.map((el: any) => ({
                 longDescription: el.LongDescription,
@@ -723,6 +724,7 @@ export const fetchByProperties = async (req: Request, res: Response) => {
         { city: { $regex: searchtext, $options: "i" } },
         { postalCode: { $eq: searchtext } },
         { subdivisionName: { $regex: searchtext, $options: "i" } },
+        { listingId: { $regex: searchtext, $options: "i" } },
       ],
     };
   }

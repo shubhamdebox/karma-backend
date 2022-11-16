@@ -7,7 +7,7 @@ const nodemailer = require("nodemailer");
 export const meetingDetails = async (req: any, res: Response) => {
   try {
 
-    const { name, phoneNo , Email ,  Date , Description } = req.body;
+    const { name, phoneNo , Email ,  Date , Description , Meetingtype } = req.body;
 
     MeetingModel.create({
       name: name,
@@ -15,6 +15,7 @@ export const meetingDetails = async (req: any, res: Response) => {
       Date: Date,
       Email : Email,
       Description : Description,
+      Meetingtype : Meetingtype,
     });
 
 

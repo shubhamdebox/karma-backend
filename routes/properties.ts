@@ -2,7 +2,7 @@ import express, { Router } from "express"
 import { loadPropertiesActiveUnderContract,loadPropertiesActive,loadPropertiesComingSoon,fetchProperties, fetchById, fetchByProperties } from "../controllers/properties"
 import { contactDetails } from "../controllers/contact";
 import { meetingDetails } from "../controllers/meeting";
-import { userLogin, userSignup ,getUser,addHouse ,removeHouse , getlikedhouses ,  } from "../controllers/Usercontroller";
+import { userLogin, userSignup ,getUser,addHouse ,removeHouse , getlikedhouses ,  } from "../controllers/usercontroller";
 import { fetchuser } from "../middleware/fetchuser";
 const router = express.Router()
 
